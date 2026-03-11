@@ -10,6 +10,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL,         // Render frontend URL
   "http://localhost:3000",         // local dev
+  "https://bakery-frontend-gy4c.onrender.com", // specific render frontend
 ].filter(Boolean);
 
 app.use(
@@ -17,8 +18,16 @@ app.use(
     origin: (origin, cb) => {
       // allow requests with no origin (like Postman)
       if (!origin) return cb(null, true);
-      if (allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error("Not allowed by CORS"));
+      
+      // Check if origin is allowed by list OR domain
+      const isAllowed = allowedOrigins.includes(origin) || origin.endsWith(".onrender.com");
+      
+      if (isAllowed) {
+        cb(null, true);
+      } else {
+        console.warn(`CORS rejected origin: ${origin}`);
+        cb(null, false);
+      }
     },
     credentials: false,
   })
