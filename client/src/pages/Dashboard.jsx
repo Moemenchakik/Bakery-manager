@@ -60,16 +60,16 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6 bg-white/80 backdrop-blur-sm rounded-2xl p-4">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
           <div className="text-2xl font-semibold">Dashboard</div>
           <div className="text-sm text-gray-500">Overview of today’s activity.</div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={load} disabled={loading}>
+          <Button variant="outline" className="flex-1 sm:flex-none" onClick={load} disabled={loading}>
             Refresh
           </Button>
-          <Button onClick={() => navigate("/orders/new")}>New Order</Button>
+          <Button className="flex-1 sm:flex-none" onClick={() => navigate("/orders/new")}>New Order</Button>
         </div>
       </div>
 

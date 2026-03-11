@@ -149,78 +149,9 @@ export default function NewOrder() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-      {/* LEFT: Products */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Create Order</CardTitle>
-          <CardDescription>Search products and build the customer’s cart.</CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2">
-            <Search size={18} className="text-gray-500" />
-            <input
-              className="w-full text-sm outline-none"
-              placeholder="Search by name or category…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-
-          {loadingProducts ? (
-            <div className="text-sm text-gray-500">Loading products…</div>
-          ) : filtered.length === 0 ? (
-            <div className="text-sm text-gray-500">No products match your search.</div>
-          ) : (
-            <div className="grid gap-3 sm:grid-cols-2">
-              {filtered.map((p) => {
-                const low = Number(p.stockQty) <= Number(p.minStockQty);
-                const out = Number(p.stockQty) === 0;
-
-                return (
-                  <button
-                    key={p._id}
-                    type="button"
-                    onClick={() => addToCart(p)}
-                    disabled={out}
-                    className="text-left rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <div className="font-semibold">{p.name}</div>
-                        <div className="text-xs text-gray-500">{p.category}</div>
-                      </div>
-                      <div className="text-sm font-semibold">{money(p.price)}</div>
-                    </div>
-
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="text-xs text-gray-600">
-                        Stock: <span className="font-medium">{p.stockQty}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        {out ? (
-                          <Badge variant="danger">Out</Badge>
-                        ) : low ? (
-                          <Badge variant="warning">Low</Badge>
-                        ) : (
-                          <Badge>OK</Badge>
-                        )}
-                        <span className="inline-flex items-center gap-1 text-xs text-gray-600">
-                          <Plus size={14} /> Add
-                        </span>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* RIGHT: Cart */}
-      <Card>
+    <div className="flex flex-col lg:grid lg:grid-cols-[1.3fr_1fr] gap-6">
+      {/* RIGHT: Cart (First on mobile) */}
+      <Card className="order-1 lg:order-2">
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <div>
@@ -240,7 +171,7 @@ export default function NewOrder() {
             </div>
           ) : null}
 
-          <div className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
             <div className="space-y-2">
               <Label>Customer name</Label>
               <Input
@@ -316,6 +247,75 @@ export default function NewOrder() {
               {saving ? "Creating..." : "Create Order"}
             </Button>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* LEFT: Products (Second on mobile) */}
+      <Card className="order-2 lg:order-1">
+        <CardHeader>
+          <CardTitle>Create Order</CardTitle>
+          <CardDescription>Search products and build the customer’s cart.</CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2">
+            <Search size={18} className="text-gray-500" />
+            <input
+              className="w-full text-sm outline-none"
+              placeholder="Search by name or category…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+
+          {loadingProducts ? (
+            <div className="text-sm text-gray-500">Loading products…</div>
+          ) : filtered.length === 0 ? (
+            <div className="text-sm text-gray-500">No products match your search.</div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {filtered.map((p) => {
+                const low = Number(p.stockQty) <= Number(p.minStockQty);
+                const out = Number(p.stockQty) === 0;
+
+                return (
+                  <button
+                    key={p._id}
+                    type="button"
+                    onClick={() => addToCart(p)}
+                    disabled={out}
+                    className="text-left rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <div className="font-semibold">{p.name}</div>
+                        <div className="text-xs text-gray-500">{p.category}</div>
+                      </div>
+                      <div className="text-sm font-semibold">{money(p.price)}</div>
+                    </div>
+
+                    <div className="mt-3 flex items-center justify-between">
+                      <div className="text-xs text-gray-600">
+                        Stock: <span className="font-medium">{p.stockQty}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        {out ? (
+                          <Badge variant="danger">Out</Badge>
+                        ) : low ? (
+                          <Badge variant="warning">Low</Badge>
+                        ) : (
+                          <Badge>OK</Badge>
+                        )}
+                        <span className="inline-flex items-center gap-1 text-xs text-gray-600">
+                          <Plus size={14} /> Add
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

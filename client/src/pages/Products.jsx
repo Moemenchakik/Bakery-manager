@@ -97,7 +97,7 @@ export default function Products() {
     <>
       <Card>
         <CardHeader>
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <CardTitle>Products</CardTitle>
               <CardDescription>
@@ -115,10 +115,10 @@ export default function Products() {
             </div>
 
             <div className="flex gap-2">
-              <Button variant="outline" onClick={load} disabled={loading}>
+              <Button variant="outline" className="flex-1 sm:flex-none" onClick={load} disabled={loading}>
                 Refresh
               </Button>
-              <Button onClick={() => navigate("/products/new")}>Add Product</Button>
+              <Button className="flex-1 sm:flex-none" onClick={() => navigate("/products/new")}>Add Product</Button>
             </div>
           </div>
         </CardHeader>

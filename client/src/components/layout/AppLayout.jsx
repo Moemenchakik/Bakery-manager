@@ -54,13 +54,13 @@ export default function AppLayout() {
                         {/* Main */}
                         <main className="space-y-6">
                             {/* Top bar */}
-                            <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
                                 <div>
                                     <div className="text-sm text-gray-500">Welcome back</div>
                                     <div className="text-base font-semibold">Manage your bakery easily</div>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Button variant="outline" onClick={() => navigate("/products/new")}>
+                                    <Button variant="outline" className="flex-1 sm:flex-none" onClick={() => navigate("/products/new")}>
                                         Add Product
                                     </Button>
                                 </div>
