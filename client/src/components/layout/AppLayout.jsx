@@ -52,7 +52,7 @@ export default function AppLayout() {
                         </aside>
 
                         {/* Main */}
-                        <main className="space-y-6">
+                        <main className="min-w-0 space-y-6">
                             {/* Top bar */}
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
                                 <div>

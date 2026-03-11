@@ -125,7 +125,7 @@ export default function Products() {
 
         <CardContent>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full min-w-[600px] text-sm">
               <thead className="text-left text-gray-500">
                 <tr className="border-b">
                   <th className="py-3 pr-3">Name</th>

@@ -137,7 +137,7 @@ export default function OrderDetails() {
             <div className="rounded-2xl border border-gray-200 bg-white p-4">
               <div className="mb-3 text-sm font-semibold">Items</div>
               <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full min-w-[400px] text-sm">
                   <thead className="text-left text-gray-500">
                     <tr className="border-b">
                       <th className="py-3 pr-3">Product</th>
