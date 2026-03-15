@@ -48,6 +48,18 @@ export default function Orders() {
     return { pending, baking, ready, delivered, revenue };
   }, [orders]);
 
+  async function removeOrder(orderId) {
+    const confirmed = window.confirm("Are you sure you want to remove this order?");
+    if (!confirmed) return;
+
+    try {
+      await api.delete(`/api/orders/${orderId}`);
+      await load();
+    } catch (e) {
+      alert(e?.response?.data?.message || "Failed to remove order");
+    }
+  }
+
   return (
     <Card>
       <CardHeader>

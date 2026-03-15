@@ -93,6 +93,18 @@ export default function Products() {
     }
   }
 
+  async function removeProduct(productId) {
+    const confirmed = window.confirm("Are you sure you want to remove this product?");
+    if (!confirmed) return;
+
+    try {
+      await api.delete(`/api/products/${productId}`);
+      await load(); // reload products
+    } catch (e) {
+      alert(e?.response?.data?.message || "Failed to remove product");
+    }
+  }
+
   return (
     <>
       <Card>
@@ -163,9 +175,22 @@ export default function Products() {
                           {low ? <Badge variant="danger">Low stock</Badge> : <Badge>OK</Badge>}
                         </td>
                         <td className="py-3 pr-3 text-right">
-                          <Button variant="outline" size="sm" onClick={() => openEdit(p)}>
-                            Edit
-                          </Button>
+                          <div className="flex justify-end gap-3">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => openEdit(p)}
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              variant="default"
+                              size="sm"
+                              onClick={() => removeProduct(p._id)}
+                            >
+                              Remove
+                            </Button>
+                          </div>
                         </td>
                       </tr>
                     );
